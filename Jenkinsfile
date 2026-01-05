@@ -32,5 +32,17 @@ pipeline {
                 }
             }
         }
+
+        stage('Docker build') {
+            steps {
+                bat "docker build -t demo-devsecops ."
+            }
+        }
+
+        stage('Docker run') {
+            steps {
+                bat 'docker run -d --rm -p 8180:8180 --name customers-app demo-devsecops'
+            }
+        }
     }
 }
