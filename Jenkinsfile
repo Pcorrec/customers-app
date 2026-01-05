@@ -21,9 +21,9 @@ pipeline {
             }
         }
 
-        stage('Unit Tests - JUnit and Jacoco') {
+        stage('Tests - JUnit and Jacoco') {
             steps {
-                parallel {
+                parallel (
                     unitaires: {
                         bat "mvn test -Dgroups=unitaires"
                     },
@@ -33,8 +33,7 @@ pipeline {
                     web: {
                         bat "mvn test -Dgroups=web"
                     }
-                }
-
+                )
             }
             post {
                 always {
