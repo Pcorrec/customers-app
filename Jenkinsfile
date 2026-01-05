@@ -55,11 +55,11 @@ pipeline {
             }
         }
 
-        stage('Docker remove image') {
-            steps {
-                bat 'docker stop demo-devsecops'
-                bat 'docker rmi demo-devsecops'
-            }
-        }
+//         stage('Docker remove image') {
+//             steps {
+//                 bat 'docker stop demo-devsecops'
+//                 bat 'docker rmi demo-devsecops'
+//             }
+//         }
     }
 }
