@@ -23,7 +23,18 @@ pipeline {
 
         stage('Unit Tests - JUnit and Jacoco') {
             steps {
-                bat "mvn test"
+                parallel {
+                    unitaires: {
+                        bat "mvn test -Dgroups=unitaires"
+                    },
+                    integrations: {
+                        bat "mvn test -Dgroups=integrations"
+                    },
+                    web: {
+                        bat "mvn test -Dgroups=web"
+                    }
+                }
+
             }
             post {
                 always {
@@ -45,10 +56,10 @@ pipeline {
             }
         }
 
-//         stage('Docker remove image') {
-//             steps {
-//                 bat 'docker rmi demo-devsecops'
-//             }
-//         }
+        stage('Docker remove image') {
+            steps {
+                bat 'docker rmi demo-devsecops'
+            }
+        }
     }
 }
